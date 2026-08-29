@@ -337,47 +337,46 @@ export const FireMap: React.FC<FireMapProps> = ({
           source: 'burn-area-source',
           maxzoom: 15,
           paint: {
-            // Weight = FRP + confidence (confidence <50 → dampen)
             'heatmap-weight': [
               'interpolate', ['linear'], ['get', 'frp'],
-              5, 0.18,
-              30, 0.42,
-              80, 0.88,
-              150, 1.25,
+              5, 0.30,
+              30, 0.60,
+              80, 1.0,
+              150, 1.35,
             ],
             'heatmap-intensity': [
               'interpolate', ['linear'], ['zoom'],
-              4, 0.55,
-              7, 1.05,
-              9, 1.65,
-              11, 2.15,
-              13, 2.45,
+              3, 0.85,
+              5, 1.15,
+              7, 1.55,
+              9, 1.95,
+              11, 2.35,
             ],
-            // 5-stop Gowa palette: cyan → green → yellow → red → dark-red
+            // 5-stop Gowa palette — thresholds lowered agar terlihat di zoom jauh (density rendah)
             'heatmap-color': [
               'interpolate', ['linear'], ['heatmap-density'],
               0.0, 'rgba(0,0,0,0)',
-              0.18, 'rgba(46,233,160,0.62)',  // Sangat Rendah - cyan/teal
-              0.38, 'rgba(143,227,138,0.70)', // Rendah - green
-              0.55, 'rgba(255,235,59,0.80)',  // Sedang - yellow
-              0.75, 'rgba(255,0,0,0.86)',     // Tinggi - red
-              1.0, 'rgba(122,0,0,0.92)',      // Sangat Tinggi - dark red
+              0.08, 'rgba(46,233,160,0.75)',
+              0.22, 'rgba(143,227,138,0.82)',
+              0.38, 'rgba(255,235,59,0.88)',
+              0.60, 'rgba(255,0,0,0.92)',
+              1.0, 'rgba(122,0,0,0.96)',
             ],
             'heatmap-radius': [
               'interpolate', ['linear'], ['zoom'],
-              4, 18,
-              6, 26,
-              8, 34,
-              11, 44,
-              13, 54,
+              3, 36,
+              5, 42,
+              7, 48,
+              9, 54,
+              11, 60,
             ],
             'heatmap-opacity': [
               'interpolate', ['linear'], ['zoom'],
-              4, 0.68,
-              8, 0.58,
-              11, 0.42,
-              13, 0.28,
-              15, 0.15,
+              3, 0.85,
+              7, 0.75,
+              10, 0.55,
+              13, 0.35,
+              15, 0.18,
             ],
           },
         });
@@ -1490,9 +1489,9 @@ export const FireMap: React.FC<FireMapProps> = ({
         </div>
       </div>
 
-      {/* Debug badge - hapus setelah verifikasi layer */}
-      <div className="absolute bottom-4 left-4 z-30 px-2 py-1 rounded bg-black/70 text-[10px] font-mono text-white border border-white/20">
-        MAP:{isMapLoaded ? 'OK' : 'LOADING'} | HS:{hotspots.length} | FIL:{hotspots.filter(h=>h.confidence>=filters.confidenceMin && (filters.selectedProvince==='__all__'||h.province===filters.selectedProvince)).length} | CL:{filters.showClusterCount?'ON':'OFF'}
+      {/* Debug badge */}
+      <div className="absolute bottom-14 left-4 z-30 px-2 py-1 rounded bg-black/80 text-[10px] font-mono text-white border border-white/20 shadow-lg">
+        MAP:{isMapLoaded ? 'OK' : 'LOADING'} | HS:{hotspots.length} | FIL:{hotspots.filter(h=>h.confidence>=filters.confidenceMin && (filters.selectedProvince==='__all__'||h.province===filters.selectedProvince)).length} | CL:{filters.showClusterCount?'ON':'OFF'} | Z:{mapRef.current ? Math.round((mapRef.current.getZoom()*10))/10 : '-'}
       </div>
 
       {/* Floating Map Legend - Bottom Right Desktop - 5 gradasi kerawanan + points */}
