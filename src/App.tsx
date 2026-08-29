@@ -5,7 +5,6 @@ import { FireMap } from './components/Map/FireMap';
 import { SidebarContainer } from './components/Sidebar/SidebarContainer';
 import { ReportFireModal } from './components/Modals/ReportFireModal';
 import { InfographicModal } from './components/Modals/InfographicModal';
-import { ApiKeyModal } from './components/Modals/ApiKeyModal';
 import type {
   Hotspot,
   FieldReport,
@@ -14,11 +13,11 @@ import type {
   AirQualityStation,
   ActiveFilters,
 } from './types/fire';
-import { fetchActiveHotspots, getSavedFirmsKey } from './services/firmsApi';
+import { fetchActiveHotspots } from './services/firmsApi';
 import { fetchLiveAirQuality } from './services/airQualityApi';
 import { getFieldReports, addFieldReport, upvoteFieldReport } from './services/reportsStore';
 import { INITIAL_POSKO } from './data/mockPosko';
-import { ListFilter, PlusCircle, Download, AlertCircle } from 'lucide-react';
+import { ListFilter, PlusCircle, Download } from 'lucide-react';
 
 const BASE_PROVINCES: Omit<ProvinceSummary, 'activeHotspots' | 'burntAreaHa' | 'riskLevel' | 'damkarUnits' | 'relawanCount'>[] = [
   { id: 'p-riau', name: 'Riau', code: 'RI', island: 'Sumatra', center: [101.44, 0.53] },
@@ -38,7 +37,6 @@ const BASE_PROVINCES: Omit<ProvinceSummary, 'activeHotspots' | 'burntAreaHa' | '
 export const App: React.FC = () => {
   const [hotspots, setHotspots] = useState<Hotspot[]>([]);
   const [isLiveFeed, setIsLiveFeed] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [fieldReports, setFieldReports] = useState<FieldReport[]>([]);
   const [poskoUnits] = useState<PoskoUnit[]>(INITIAL_POSKO);
   const [provinces, setProvinces] = useState<ProvinceSummary[]>([]);
@@ -50,7 +48,6 @@ export const App: React.FC = () => {
   // Modals state
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isInfographicModalOpen, setIsInfographicModalOpen] = useState(false);
-  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
   const mapCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -129,10 +126,9 @@ export const App: React.FC = () => {
   const loadData = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      const { hotspots: fetchedHotspots, isLive, error } = await fetchActiveHotspots();
+      const { hotspots: fetchedHotspots, isLive } = await fetchActiveHotspots();
       setHotspots(fetchedHotspots);
       setIsLiveFeed(isLive);
-      setErrorMessage(error || null);
       // provinces dihitung otomatis via effect [hotspots, confidenceMin] dibawah
 
       // 3. Fetch Real-time Air Quality (ISPU & PM2.5)
@@ -144,7 +140,6 @@ export const App: React.FC = () => {
       setLastUpdated(new Date());
     } catch (err: any) {
       console.error('Error loading live data:', err);
-      setErrorMessage('Terjadi kendala saat memuat data satelit atau kualitas udara.');
     } finally {
       setIsRefreshing(false);
     }
@@ -152,9 +147,6 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     loadData();
-    if (!getSavedFirmsKey()) {
-      setIsApiKeyModalOpen(true);
-    }
     const interval = setInterval(loadData, 60000);
     return () => clearInterval(interval);
   }, [loadData]);
@@ -205,28 +197,11 @@ export const App: React.FC = () => {
         isRefreshing={isRefreshing}
         onOpenReportModal={() => setIsReportModalOpen(true)}
         onOpenInfographicModal={() => setIsInfographicModalOpen(true)}
-        onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
         onOpenSidebar={() => setIsMobileDrawerOpen(true)}
         lastUpdated={lastUpdated}
         isLiveFeed={isLiveFeed}
         hotspotsCount={headerHotspotsCount}
       />
-
-      {/* Warning banner if NASA key is needed */}
-      {errorMessage && (
-        <div className="bg-amber-950/80 border-b border-amber-800/60 px-4 py-2 flex items-center justify-between text-xs text-amber-200 shrink-0">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
-          <button
-            onClick={() => setIsApiKeyModalOpen(true)}
-            className="px-2.5 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-[11px] shrink-0 ml-2"
-          >
-            Buka NASA Key
-          </button>
-        </div>
-      )}
 
       {/* 2. Four Metrics Banner (Realtime) - now follows selected wilayah + akurasi */}
       <StatsBanner
@@ -320,12 +295,6 @@ export const App: React.FC = () => {
         provinces={provinces}
         airQualityList={airQualityList}
         poskoCount={poskoUnits.length}
-      />
-
-      <ApiKeyModal
-        isOpen={isApiKeyModalOpen}
-        onClose={() => setIsApiKeyModalOpen(false)}
-        onSaved={loadData}
       />
     </div>
   );

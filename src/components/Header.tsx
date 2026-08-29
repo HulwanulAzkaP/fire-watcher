@@ -1,12 +1,11 @@
 import React from 'react';
-import { Flame, RefreshCw, Download, PlusCircle, Radio, Key, Menu } from 'lucide-react';
+import { Flame, RefreshCw, Download, PlusCircle, Radio, Menu } from 'lucide-react';
 
 interface HeaderProps {
   onRefresh: () => void;
   isRefreshing: boolean;
   onOpenReportModal: () => void;
   onOpenInfographicModal: () => void;
-  onOpenApiKeyModal: () => void;
   onOpenSidebar?: () => void;
   lastUpdated: Date;
   isLiveFeed: boolean;
@@ -18,7 +17,6 @@ export const Header: React.FC<HeaderProps> = ({
   isRefreshing,
   onOpenReportModal,
   onOpenInfographicModal,
-  onOpenApiKeyModal,
   onOpenSidebar,
   lastUpdated,
   isLiveFeed,
@@ -82,16 +80,6 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <RefreshCw className={`h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-300 ${isRefreshing ? 'animate-spin' : ''}`} />
           <span className="hidden lg:inline">Segarkan</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={onOpenApiKeyModal}
-          title="Atur NASA FIRMS API Key (Gratis)"
-          className="hidden lg:flex items-center gap-1 px-2.5 py-2 rounded-xl bg-slate-800/70 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-medium transition-all cursor-pointer active:scale-95"
-        >
-          <Key className="h-3.5 w-3.5 text-amber-400" />
-          <span>NASA Key</span>
         </button>
 
         <button
