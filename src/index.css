@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.6);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.9);
+}
+
+/* MapLibre custom popup styling */
+.fire-popup .maplibregl-popup-content {
+  padding: 0;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.6), 0 0 15px rgba(239, 68, 68, 0.15);
+  overflow: hidden;
+  color: #f8fafc;
+}
+
+.fire-popup .maplibregl-popup-close-button {
+  padding: 6px 10px;
+  font-size: 16px;
+  color: #94a3b8;
+  transition: color 0.15s ease;
+  z-index: 10;
+}
+
+.fire-popup .maplibregl-popup-close-button:hover {
+  color: #ffffff;
+  background: transparent;
+}
+
+.fire-popup .maplibregl-popup-tip {
+  border-top-color: #0f172a !important;
+}
+
+/* Responsive mobile map controls */
+@media (max-width: 1023px) {
+  .maplibregl-ctrl-top-right, .maplibregl-ctrl-bottom-left {
+    display: none !important;
+  }
+}
+
+/* Fire Pulse Marker Animations */
+@keyframes fireRing {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.fire-pulse-ring {
+  animation: fireRing 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
