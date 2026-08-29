@@ -308,17 +308,17 @@ export const SidebarContainer: React.FC<SidebarContainerProps> = ({
 
       {/* Mobile Drawer Sheet */}
       {isOpenMobile && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-black/60 backdrop-blur-sm lg:hidden animate-in fade-in duration-200">
-          <div className="flex items-center justify-between p-3 bg-slate-900 border-b border-slate-800">
+        <div className="fixed inset-0 z-[60] flex flex-col bg-black/60 backdrop-blur-sm lg:hidden animate-in fade-in duration-200">
+          <div className="flex items-center justify-between p-3 bg-slate-900 border-b border-slate-800 shrink-0">
             <h3 className="text-sm font-bold text-white">Detail Pantauan & Laporan</h3>
             <button
               onClick={onCloseMobile}
-              className="p-1 rounded-lg text-slate-400 hover:text-white"
+              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
-          <div className="flex-1 overflow-hidden">{content}</div>
+          <div className="flex-1 overflow-hidden bg-slate-900">{content}</div>
         </div>
       )}
     </>

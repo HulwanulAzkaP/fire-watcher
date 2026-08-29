@@ -1392,15 +1392,15 @@ export const FireMap: React.FC<FireMapProps> = ({
     <div className="relative w-full h-full bg-slate-950 overflow-hidden">
       <div ref={mapContainerRef} className="w-full h-full" />
 
-      {/* Floating Map Controls - Top Left + Center */}
-      <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+      {/* Floating Map Controls - Top Left + Center - smaller on mobile */}
+      <div className="absolute top-3 left-2 sm:top-4 sm:left-4 z-20 flex flex-col gap-1.5 sm:gap-2">
         <div className="relative">
           <button
             type="button"
             onClick={() => setIsStyleMenuOpen(!isStyleMenuOpen)}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/95 hover:bg-slate-800 text-white text-xs font-semibold border border-slate-700/80 shadow-xl backdrop-blur transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-slate-900/95 hover:bg-slate-800 text-white text-[11px] sm:text-xs font-semibold border border-slate-700/80 shadow-xl backdrop-blur transition-all active:scale-95 cursor-pointer"
           >
-            <Layers className="h-4 w-4 text-orange-400" />
+            <Layers className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-orange-400" />
             <span>Peta: {MAP_STYLES[activeStyle].label.split(' ')[0]}</span>
           </button>
 
@@ -1430,16 +1430,16 @@ export const FireMap: React.FC<FireMapProps> = ({
           <button
             type="button"
             onClick={onResetIndonesia}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold border border-emerald-500/50 shadow-xl backdrop-blur transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] sm:text-xs font-bold border border-emerald-500/50 shadow-xl backdrop-blur transition-all active:scale-95 cursor-pointer"
             title="Kembali ke pantauan seluruh Indonesia"
           >
-            <span className="h-2 w-2 rounded-full bg-white animate-pulse"></span>
+            <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-white animate-pulse"></span>
             <span>{resetLabel || 'Kembali ke Deteksi Indonesia'}</span>
           </button>
         )}
       </div>
 
-      {/* Center Top Reset Pill (alternative position, visible on larger screens) */}
+      {/* Center Top Reset Pill (visible on larger screens) */}
       {showResetButton && onResetIndonesia && (
         <div className="hidden lg:flex absolute top-4 left-1/2 -translate-x-1/2 z-20">
           <button
@@ -1456,15 +1456,15 @@ export const FireMap: React.FC<FireMapProps> = ({
         </div>
       )}
 
-      {/* Floating Map Controls - Top Right */}
-      <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
+      {/* Floating Map Controls - Top Right - smaller on mobile */}
+      <div className="absolute top-3 right-2 sm:top-4 sm:right-4 z-20 flex flex-col gap-1.5 sm:gap-2">
         <button
           type="button"
           onClick={handleResetView}
           title="Kembali ke Tampilan Seluruh Indonesia"
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700/80 shadow-xl backdrop-blur transition-all active:scale-95 cursor-pointer"
+          className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-slate-900/95 hover:bg-slate-800 text-white border border-slate-700/80 shadow-xl backdrop-blur transition-all active:scale-95 cursor-pointer"
         >
-          <Maximize2 className="h-4 w-4 text-slate-300" />
+          <Maximize2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-300" />
         </button>
 
         <div className="flex flex-col rounded-xl bg-slate-900/95 border border-slate-700/80 shadow-xl backdrop-blur overflow-hidden">
@@ -1472,17 +1472,17 @@ export const FireMap: React.FC<FireMapProps> = ({
             type="button"
             onClick={() => mapRef.current?.zoomIn()}
             title="Perbesar"
-            className="flex h-10 w-10 items-center justify-center text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer border-b border-slate-800"
+            className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer border-b border-slate-800"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
           <button
             type="button"
             onClick={() => mapRef.current?.zoomOut()}
             title="Perkecil"
-            className="flex h-10 w-10 items-center justify-center text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer"
+            className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer"
           >
-            <Minus className="h-4 w-4" />
+            <Minus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
         </div>
       </div>

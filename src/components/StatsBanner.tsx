@@ -113,77 +113,77 @@ export const StatsBanner: React.FC<StatsBannerProps> = ({
   const worstAir = displayAir;
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 p-3 bg-slate-900/60 border-b border-slate-800 shrink-0">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2.5 lg:gap-3 p-1.5 sm:p-3 bg-slate-900/60 border-b border-slate-800 shrink-0">
       {/* 1. Hotspots */}
-      <div className="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-br from-red-950/40 to-slate-900/80 border border-red-900/30">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-500/15 text-red-400 border border-red-500/20">
-          <Flame className="h-5 w-5" />
+      <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-950/40 to-slate-900/80 border border-red-900/30">
+        <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-red-500/15 text-red-400 border border-red-500/20">
+          <Flame className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
         <div className="min-w-0">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-xl sm:text-2xl font-black text-red-400 tracking-tight">
+          <div className="flex items-baseline gap-1">
+            <span className="text-base sm:text-xl lg:text-2xl font-black text-red-400 tracking-tight">
               {hotspotsCount.toLocaleString('id-ID')}
             </span>
-            <span className="text-[11px] font-semibold text-red-500/80 uppercase">Titik</span>
+            <span className="text-[10px] sm:text-[11px] font-semibold text-red-500/80 uppercase">Titik</span>
           </div>
-          <p className="text-[11px] font-semibold text-slate-400 truncate">
-            Hotspot Satelit (24 Jam){locationLabel ? ` · ${locationLabel}` : ''}
+          <p className="text-[10px] sm:text-[11px] font-semibold text-slate-400 truncate">
+            Hotspot (24 Jam){locationLabel ? ` · ${locationLabel}` : ''}
           </p>
         </div>
       </div>
 
       {/* 2. Burnt Area */}
-      <div className="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-br from-orange-950/40 to-slate-900/80 border border-orange-900/30">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500/15 text-orange-400 border border-orange-500/20">
-          <Trees className="h-5 w-5" />
+      <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-orange-950/40 to-slate-900/80 border border-orange-900/30">
+        <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-orange-500/15 text-orange-400 border border-orange-500/20">
+          <Trees className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
         <div className="min-w-0">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-xl sm:text-2xl font-black text-orange-400 tracking-tight">
+          <div className="flex items-baseline gap-1">
+            <span className="text-base sm:text-xl lg:text-2xl font-black text-orange-400 tracking-tight">
               {Math.round(totalBurntHa).toLocaleString('id-ID')}
             </span>
-            <span className="text-[11px] font-semibold text-orange-500/80 uppercase">Hektar</span>
+            <span className="text-[10px] sm:text-[11px] font-semibold text-orange-500/80 uppercase">Ha</span>
           </div>
-          <p className="text-[11px] font-semibold text-slate-400 truncate">
-            Perkiraan Luas Terbakar{locationLabel ? ` · ${locationLabel}` : ''}
+          <p className="text-[10px] sm:text-[11px] font-semibold text-slate-400 truncate">
+            Luas Terbakar{locationLabel ? ` · ${locationLabel}` : ''}
           </p>
         </div>
       </div>
 
       {/* 3. ISPU Air Quality */}
-      <div className="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-br from-purple-950/40 to-slate-900/80 border border-purple-900/30">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-400 border border-purple-500/20">
-          <Wind className="h-5 w-5" />
+      <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-950/40 to-slate-900/80 border border-purple-900/30">
+        <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-purple-500/15 text-purple-400 border border-purple-500/20">
+          <Wind className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
         <div className="min-w-0">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-xl sm:text-2xl font-black text-purple-400 tracking-tight">
+          <div className="flex items-baseline gap-1">
+            <span className="text-base sm:text-xl lg:text-2xl font-black text-purple-400 tracking-tight">
               {worstAir ? worstAir.ispu : 0}
             </span>
-            <span className="text-[10px] font-bold text-purple-300 uppercase px-1.5 py-0.5 rounded bg-purple-950/80 border border-purple-800/40 truncate max-w-[90px]">
+            <span className="text-[9px] sm:text-[10px] font-bold text-purple-300 uppercase px-1 py-0.5 rounded bg-purple-950/80 border border-purple-800/40 truncate max-w-[70px] sm:max-w-[90px]">
               {worstAir?.cityName || 'ISPU'}
             </span>
           </div>
-          <p className="text-[11px] font-semibold text-slate-400 truncate">
-            {worstAir ? `${worstAir.category}${isLocationFiltered ? ` · ${worstAir.cityName}` : ''}` : 'Kualitas Udara — tidak ada data'}
+          <p className="text-[10px] sm:text-[11px] font-semibold text-slate-400 truncate">
+            {worstAir ? `${worstAir.category}${isLocationFiltered ? ` · ${worstAir.cityName}` : ''}` : 'ISPU — no data'}
           </p>
         </div>
       </div>
 
       {/* 4. Posko & Damkar */}
-      <div className="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-br from-blue-950/40 to-slate-900/80 border border-blue-900/30">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/20">
-          <ShieldAlert className="h-5 w-5" />
+      <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-950/40 to-slate-900/80 border border-blue-900/30">
+        <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/20">
+          <ShieldAlert className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
         <div className="min-w-0">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-xl sm:text-2xl font-black text-blue-400 tracking-tight">
+          <div className="flex items-baseline gap-1">
+            <span className="text-base sm:text-xl lg:text-2xl font-black text-blue-400 tracking-tight">
               {poskoCount}
             </span>
-            <span className="text-[11px] font-semibold text-blue-500/80 uppercase">Posko</span>
+            <span className="text-[10px] sm:text-[11px] font-semibold text-blue-500/80 uppercase">Posko</span>
           </div>
-          <p className="text-[11px] font-semibold text-slate-400 truncate">
-            Damkar & Relawan Siaga{locationLabel ? ` · ${locationLabel}` : ''}
+          <p className="text-[10px] sm:text-[11px] font-semibold text-slate-400 truncate">
+            Damkar Siaga{locationLabel ? ` · ${locationLabel}` : ''}
           </p>
         </div>
       </div>

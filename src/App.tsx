@@ -206,6 +206,7 @@ export const App: React.FC = () => {
         onOpenReportModal={() => setIsReportModalOpen(true)}
         onOpenInfographicModal={() => setIsInfographicModalOpen(true)}
         onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
+        onOpenSidebar={() => setIsMobileDrawerOpen(true)}
         lastUpdated={lastUpdated}
         isLiveFeed={isLiveFeed}
         hotspotsCount={headerHotspotsCount}
@@ -274,12 +275,12 @@ export const App: React.FC = () => {
             resetLabel={selectedRegency ? selectedRegency : filters.selectedProvince !== '__all__' ? filters.selectedProvince : undefined}
           />
 
-          {/* Floating Mobile Bottom Action Bar */}
-          <div className="lg:hidden absolute bottom-3 inset-x-3 z-30 flex items-center gap-2">
+          {/* Floating Mobile Bottom Action Bar - always visible, safe area */}
+          <div className="lg:hidden absolute bottom-2 inset-x-2 sm:bottom-3 sm:inset-x-3 z-40 flex items-center gap-2 pb-[env(safe-area-inset-bottom)]">
             <button
               type="button"
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl bg-slate-900/95 border border-slate-700/80 text-white font-bold text-xs shadow-2xl backdrop-blur active:scale-95 transition-all"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-2xl bg-slate-900/95 border border-slate-700/80 text-white font-bold text-xs shadow-2xl backdrop-blur active:scale-95 transition-all"
             >
               <ListFilter className="h-4 w-4 text-orange-400" />
               <span>Daftar & Filter ({headerHotspotsCount})</span>
@@ -288,7 +289,7 @@ export const App: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsReportModalOpen(true)}
-              className="flex items-center justify-center p-3 rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-2xl active:scale-95 transition-all"
+              className="flex items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-2xl active:scale-95 transition-all"
             >
               <PlusCircle className="h-5 w-5" />
             </button>
