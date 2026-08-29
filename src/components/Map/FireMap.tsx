@@ -1017,6 +1017,9 @@ export const FireMap: React.FC<FireMapProps> = ({
       if (mapCanvasRef) {
         mapCanvasRef.current = map.getCanvas();
       }
+      // Ensure map resizes correctly after container flex layout (mobile)
+      setTimeout(() => { try { map.resize(); } catch {} }, 100);
+      setTimeout(() => { try { map.resize(); } catch {} }, 600);
     });
 
     return () => {
