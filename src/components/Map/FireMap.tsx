@@ -1216,6 +1216,8 @@ export const FireMap: React.FC<FireMapProps> = ({
       return true;
     });
 
+    console.log('[FireMap] Sync hotspots:', { total: hotspots.length, filtered: filtered.length, confidenceMin: filters.confidenceMin, selectedProvince: filters.selectedProvince });
+
     const hotspotFeatures = filtered.map((h) => ({
       type: 'Feature' as const,
       geometry: { type: 'Point' as const, coordinates: [h.longitude, h.latitude] },
@@ -1240,6 +1242,7 @@ export const FireMap: React.FC<FireMapProps> = ({
     // Also feed the burn-area source with the same data for heatmap/perimeter
     const burnSource = map.getSource('burn-area-source') as GeoJSONSource;
     if (burnSource) {
+      console.log('[FireMap] Setting burn-area-source with', hotspotFeatures.length, 'features');
       burnSource.setData({ type: 'FeatureCollection', features: hotspotFeatures });
     }
 
