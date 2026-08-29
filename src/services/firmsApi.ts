@@ -2,6 +2,7 @@ import type { Hotspot } from '../types/fire';
 import { INITIAL_HOTSPOTS } from '../data/mockHotspots';
 
 const FIRMS_API_KEY_STORAGE = 'firewatcher_firms_key';
+const DEFAULT_FIRMS_KEY = 'e2875cd65c971ab1b3b190777c389b05'; // embedded agar Vercel live tanpa input manual — jaga kerahasiaan, jangan share publik
 
 // Fallback demo data so Vercel selalu tampil layer bahkan tanpa NASA Key
 function generateFallbackHotspots(): Hotspot[] {
@@ -35,7 +36,12 @@ function generateFallbackHotspots(): Hotspot[] {
 const FALLBACK_HOTSPOTS = generateFallbackHotspots();
 
 export function getSavedFirmsKey(): string {
-  return localStorage.getItem(FIRMS_API_KEY_STORAGE) || '';
+  if (typeof window === 'undefined') return DEFAULT_FIRMS_KEY;
+  const saved = localStorage.getItem(FIRMS_API_KEY_STORAGE);
+  if (saved && saved.trim()) return saved.trim();
+  // auto-seed default key agar live langsung jalan; tetap bisa diganti via modal
+  try { localStorage.setItem(FIRMS_API_KEY_STORAGE, DEFAULT_FIRMS_KEY); } catch {}
+  return DEFAULT_FIRMS_KEY;
 }
 
 export function saveFirmsKey(key: string): void {
@@ -48,7 +54,7 @@ export function saveFirmsKey(key: string): void {
 
 // Fetch real-time NASA FIRMS satellite data directly
 export async function fetchActiveHotspots(): Promise<{ hotspots: Hotspot[]; isLive: boolean; error?: string }> {
-  const apiKey = typeof window !== 'undefined' ? getSavedFirmsKey() : '';
+  const apiKey = getSavedFirmsKey();
 
   if (!apiKey) {
     return {
