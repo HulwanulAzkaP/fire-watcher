@@ -1490,6 +1490,11 @@ export const FireMap: React.FC<FireMapProps> = ({
         </div>
       </div>
 
+      {/* Debug badge - hapus setelah verifikasi layer */}
+      <div className="absolute bottom-4 left-4 z-30 px-2 py-1 rounded bg-black/70 text-[10px] font-mono text-white border border-white/20">
+        MAP:{isMapLoaded ? 'OK' : 'LOADING'} | HS:{hotspots.length} | FIL:{hotspots.filter(h=>h.confidence>=filters.confidenceMin && (filters.selectedProvince==='__all__'||h.province===filters.selectedProvince)).length} | CL:{filters.showClusterCount?'ON':'OFF'}
+      </div>
+
       {/* Floating Map Legend - Bottom Right Desktop - 5 gradasi kerawanan + points */}
       <div className="hidden lg:flex absolute bottom-4 right-4 z-20 items-center gap-2.5 px-3.5 py-2 rounded-full bg-slate-900/95 border border-slate-800 shadow-xl backdrop-blur text-[10px] font-bold text-slate-200">
         <span className="text-slate-400 font-extrabold mr-1">Kerawanan:</span>
